@@ -24,27 +24,4 @@ class Board
     @ships << ship
     place_ship_randomly(ship)
   end
-
-  def place_ship_randomly(ship)
-    #TODO logic to place ship
-  end
-
-  def to_s
-    output = ""
-    @board.count.times do
-      output += "-----"
-    end
-    output += " <br> "
-    @board.each do |row|
-      row.each do |element|
-        output += "| #{element} |"
-      end
-      output += " <br> "
-      row.count.times do
-        output += "-----"
-      end
-      output += " <br> "
-    end
-    output
-  end
 end
