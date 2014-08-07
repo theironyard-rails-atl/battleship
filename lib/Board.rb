@@ -3,25 +3,22 @@ require_relative './Ship.rb'
 require 'YAML'
 
 class Board
-  def initialize(board_file)
-    @board_hash = YAML.load(board_file) 
+  attr_reader :size
+  attr_writer :active_pos, :inactive_pos, :misses, 
+  def initialize(board_file, size)
+    @board_arr = YAML::load(File.open(board_file)) 
     @active_pos = {}
     @inactive_pos = {}
     @misses = []
+    @size = size
   end
 
   def creat_pos
-    @board_hash.each do |name, pos_arr| 
+    @board_arr.each do |name, pos_arr| 
       ship = Ship.new(name)
       pos_arr.each do |pos|
         @active_pos[pos] = ship
       end
     end
-  end
-
-  def add_ship(length=Rand(1..4))
-    ship = Ship.new(length)
-    @ships << ship
-    place_ship_randomly(ship)
   end
 end
