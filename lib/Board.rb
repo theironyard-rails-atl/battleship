@@ -4,7 +4,8 @@ require 'YAML'
 
 class Board
   attr_reader :size
-  attr_writer :active_pos, :inactive_pos, :misses, 
+  attr_accessor :active_pos, :inactive_pos, :misses
+  
   def initialize(board_file, size)
     @board_arr = YAML::load(File.open(board_file)) 
     @active_pos = {}
@@ -24,13 +25,17 @@ class Board
 
   def hit?(x,y)
     if @active_pos.include?([x,y])
-      @inactive_pos.push(@active_pos.delete_if |key,_| key = [x,y])
+      @inactive_pos.push(@active_pos.delete_if { |key, value| key == [x,y] })
       true
     else
-      @misses.push(@active_pos.delete_if |key,_| key = [x,y])
+      @misses.push(@active_pos.delete_if { |key, value| key == [x,y] })
       false
     end
   end
+
+  # def hit_destroys_ship?
+  #   if hit? &&  
+  #   end
 
   def show_hit?(x,y)
     @inactive_pos.include?([x,y])
