@@ -1,16 +1,14 @@
 require 'pry'
 
 class Ship
-  def initialize(length)
-    @length = length
-    @floating = true
+  attr_reader :name
+  def initialize(name)
+    @name = name
+    @destroyed = false 
   end
 
-  def floating?
-    @floating
+  def destroyed?
+    @destroyed
   end
-
-
-
 
 end
