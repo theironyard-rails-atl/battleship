@@ -13,7 +13,7 @@ class Board
     @size = size
   end
 
-  def creat_pos
+  def create_pos
     @board_arr.each do |name, pos_arr| 
       ship = Ship.new(name)
       pos_arr.each do |pos|
