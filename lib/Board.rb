@@ -7,7 +7,7 @@ class Board
   attr_accessor :active_pos, :inactive_pos, :misses
   
   def initialize(board_file, size)
-    @board_arr = YAML::load(File.open(board_file)) 
+    @board_arr = YAML::load(File.open(board_file))
     @active_pos = {}
     @inactive_pos = {}
     @misses = []
@@ -15,7 +15,7 @@ class Board
   end
 
   def create_pos
-    @board_arr.each do |name, pos_arr| 
+    @board_arr.each do |name, pos_arr|
       ship = Ship.new(name)
       pos_arr.each do |pos|
         @active_pos[pos] = ship
