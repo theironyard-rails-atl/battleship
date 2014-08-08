@@ -1,6 +1,6 @@
 require 'pry'
 require_relative './Ship.rb'
-require 'YAML'
+require 'yaml'
 require 'pry'
 require 'httparty'
 

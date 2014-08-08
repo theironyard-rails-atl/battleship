@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'Haml'
+require 'haml'
 require './lib/Battleship.rb'
 
 
