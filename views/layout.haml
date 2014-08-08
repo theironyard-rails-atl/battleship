@@ -1,0 +1,33 @@
+!!! 5
+%html
+  %head
+    %title Awesome Battleship Game
+    -#%link(rel="stylesheet" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")
+    %link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    %link(rel="stylesheet" href="css/styles.css")
+
+  %body
+    .container
+      .row
+        %nav.navbar.navbar-default{:role => "navigation"}
+          .container-fluid
+            .navbar-header
+              %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+                %span.sr-only Toggle navigation
+                %span.icon-bar
+                %span.icon-bar
+                %span.icon-bar
+              %a.navbar-brand{:href => "#"} Awesome Battleship Game
+            / Collect the nav links, forms, and other content for toggling
+            #bs-example-navbar-collapse-1.collapse.navbar-collapse
+              %ul.nav.navbar-nav.navbar-right
+                %li
+                  %a{:href => "http://#{request.host}:#{request.port}/"} New Game
+                %li
+                  %a{:href => "http://#{request.host}:#{request.port}/about"} About the Makers
+
+      =yield
+    %script(src="http://code.jquery.com/jquery.js")
+    %script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")

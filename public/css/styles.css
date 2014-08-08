@@ -1,0 +1,48 @@
+
+
+
+/*Table formatting*/
+td {
+    border: 1px solid black;
+}
+
+.hit {
+    background-color: #ff4b52;
+}
+
+.missed {
+    background-color: #a09863;
+}
+
+.blank {
+    background-color: #ffffff;
+}
+
+td {
+    min-height: 50px;
+    padding: 0 0 0 0; !important;
+}
+
+td div {
+    width: 90%;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0 0 0 0;
+
+}
+
+td div a {
+ display: block;
+ padding: 0 0 0 0;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+i {
+    margin-left: auto;
+    margin-right: auto;
+}

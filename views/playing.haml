@@ -1,0 +1,31 @@
+.row
+  .col-md-2
+  .col-md-5
+    .panel.panel-default
+      .panel-heading Computer's Board
+    %table.table
+      - game.player.board.size.times do |x|
+        %tr
+        - game.player.board.size.times do |y|
+          - cell = cell_class(x, y)
+          %td{ :class => cell }
+            %div
+              - if cell == "blank"
+                %a{ :href => "http://#{request.host}:#{request.port}/?playing=true&x=#{x}&y=#{y}" }
+                  %i.fa.fa-question
+              - else
+                &nbsp &nbsp
+  .col-md-3
+    #side_bar.col-md-3
+      %h1 Scores
+      %p Put user scores here
+  .col-md-2
+.row
+  .col-md-12
+    - if message
+      .alert.alert-warning.alert-dismissible(role="alert")
+        %button.close(type="button" data-dismiss="alert")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %strong Warning!
+        Better check yourself, you're not looking too good.
