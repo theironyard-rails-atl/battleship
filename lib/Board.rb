@@ -2,12 +2,17 @@ require 'pry'
 require_relative './Ship.rb'
 require 'yaml'
 require 'pry'
-require 'httparty'
 
 class Board
   attr_reader :size
   attr_accessor :active_pos, :inactive_pos, :misses
   
+  $SHIP_SIZES = {destroyer: 2,
+                 submarine: 3,
+                 cruiser: 3,
+                 battleship: 4,
+                 carrier: 5 }
+
   def initialize(board_file, size=10)
     @board_arr = YAML::load(File.open(board_file))
     @active_pos = {}
@@ -39,18 +44,12 @@ class Board
     end
   end
 
-=begin
-  #redundant method
-  def hit_destroys_ship?(hit)
-    ship_obj = hit.value
-    if hit? && @active_pos.has_value?(ship_obj)
-      ship_ojb.destroyed = true
-    end
-  end
-=end
-
   def active_ship?(ship_obj)
     @active_pos.has_value?(ship_obj)
+  end
+
+  def show_active_pos?(x,y)
+    @active_pos.include?([x,y])
   end
 
   def show_hit?(x,y)
