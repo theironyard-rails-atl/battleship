@@ -8,7 +8,7 @@ class Board
   attr_reader :size
   attr_accessor :active_pos, :inactive_pos, :misses
   
-  def initialize(board_file, size)
+  def initialize(board_file, size=10)
     @board_arr = YAML::load(File.open(board_file))
     @active_pos = {}
     @inactive_pos = {}
