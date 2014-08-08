@@ -80,6 +80,10 @@ class Board
     @active_pos.values.uniq.count
   end
 
+  def game_won?
+    @active_pos.count == 0
+  end
+
   def console_it
     puts "Board array is " + @board_arr.to_s
     puts "Active_pos is " + @active_pos.to_s
