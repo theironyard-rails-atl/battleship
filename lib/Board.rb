@@ -1,6 +1,7 @@
 require 'pry'
 require_relative './Ship.rb'
 require 'YAML'
+require 'pry'
 
 class Board
   attr_reader :size
@@ -25,10 +26,12 @@ class Board
 
   def hit?(x,y)
     if @active_pos.include?([x,y])
-      @inactive_pos.push(@active_pos.delete_if { |key, value| key == [x,y] })
+      hit = @active_pos.select { |key, value| key == [x,y] }
+      @active_pos.delete([x,y]) 
+      @inactive_pos.merge!(hit)
       true
     else
-      @misses.push(@active_pos.delete_if { |key, value| key == [x,y] })
+      @misses << [x,y] 
       false
     end
   end
