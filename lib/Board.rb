@@ -4,10 +4,28 @@ require 'yaml'
 require 'pry'
 require 'httparty'
 
+
+module SetupBoard
+# { ship: destroyer, x: 1, y: 1, dir: h }
+#
+def put_piece(hash)
+  coords = [hash[:x], hash[:y]
+  dir = hash[:dir]
+  length = SHIP_LENGTHS[hash[:ship].to_sym]
+
+  if dir == "h"
+    if 
+
+  elsif dir == "v"
+
+  end
+
+end
+
 class Board
   attr_reader :size
   attr_accessor :active_pos, :inactive_pos, :misses
-  
+
   def initialize(board_file, size=10)
     @board_arr = YAML::load(File.open(board_file))
     @active_pos = {}
@@ -34,7 +52,7 @@ class Board
       @inactive_pos.merge!(hit_obj)
       active_ship?(hit_obj[[x,y]]) ? "hit" : "sunk"
     else
-      @misses << [x,y] 
+      @misses << [x,y]
       "miss"
     end
   end
