@@ -12,20 +12,38 @@
             %div
               - if cell == "blank"
                 %a{ :href => "http://#{request.host}:#{request.port}/?playing=true&x=#{x}&y=#{y}" }
-                  %i.fa.fa-question
+                  &nbsp &nbsp
+                  -#%i.fa.fa-question
               - else
                 &nbsp &nbsp
-  .col-md-3
-    #side_bar.col-md-3
-      %h1 Scores
-      %p Put user scores here
-  .col-md-2
+  .col-md-4
+    #side_bar
+      %h1 Game Stats
+      %p= "Misses: #{game.player.board.count_misses}"
+      %p= "Hits: #{game.player.board.count_hits}"
+      %p= "Ships Sunk: #{game.player.board.count_sunk}"
+      %p= "Ships Remaining: #{game.player.board.count_remaining}"
+  .col-md-1
 .row
   .col-md-12
-    - if message
-      .alert.alert-warning.alert-dismissible(role="alert")
+    - if result == "hit"
+      .alert.alert-success.alert-dismissible(role="alert")
         %button.close(type="button" data-dismiss="alert")
           %span(aria-hidden="true")
           %span.sr-only Close
-        %strong Warning!
-        Better check yourself, you're not looking too good.
+        %strong Hit!
+        You hit like a heavyweight champ!
+    - elsif result == "sunk"
+      .alert.alert-success.alert-dismissible(role="alert")
+        %button.close(type="button" data-dismiss="alert")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %strong Sunk!
+        Did you just buy a kitchen sink, cuz you just sunk that fool!
+    - elsif result == "miss"
+      .alert.alert-danger.alert-dismissible(role="alert")
+        %button.close(type="button" data-dismiss="alert")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %strong Miss!
+        Try playing again!

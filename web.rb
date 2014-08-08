@@ -9,13 +9,13 @@ get '/' do
   if request["new_player_name"]
     name = request[:new_player_name]
     session[:game] = Battleship.new(:name => name)
-    message = false
-    haml :playing, :locals => { :game => session[:game], :request => request, :message => message }
+    result = ""
+    haml :playing, :locals => { :game => session[:game], :request => request, :result => result }
   elsif request["playing"]
-    x = request["x"]
-    y = request["y"]
-    message = session[:game].player.fire(x, y)
-    haml :playing, :locals => { :game => session[:game], :request => request, :message => message }
+    x = request["x"].to_i
+    y = request["y"].to_i
+    result = session[:game].player.fire(x, y)
+    haml :playing, :locals => { :game => session[:game], :request => request, :result => result }
   else
     haml :index, :locals => { :request => request }
   end

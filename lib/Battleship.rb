@@ -1,8 +1,9 @@
 require 'pry'
-require_relative './Player.rb'
-require_relative './Computer.rb'
+require_relative './Participant.rb'
 
 class Battleship
+  attr_accessor :player, :computer
+
   def initialize(hash)
     @player = Player.new(hash[:name])
     @computer = Computer.new(hash[:level])
