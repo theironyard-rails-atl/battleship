@@ -29,16 +29,18 @@ class Board
       hit = @active_pos.select { |key, value| key == [x,y] }
       @active_pos.delete([x,y]) 
       @inactive_pos.merge!(hit)
-      true
     else
       @misses << [x,y] 
       false
     end
   end
 
-  # def hit_destroys_ship?
-  #   if hit? &&  
-  #   end
+  def hit_destroys_ship?(hit)
+    ship_obj = hit.value
+    if hit? && @active_pos.has_value?(ship_obj)
+      ship_ojb.destroyed = true
+    end
+  end
 
   def show_hit?(x,y)
     @inactive_pos.include?([x,y])
@@ -46,5 +48,17 @@ class Board
 
   def show_miss?(x,y)
     @misses.include?([x,y])
+  end
+
+  def destroyed_msg(ship_obj)
+    "You sank the opponent's #{ship_obj.name.to_s.capitalize}!"
+  end 
+
+  def hit_msg
+    "Boom"
+  end
+
+  def miss_msg
+    "Splash"
   end
 end
