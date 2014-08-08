@@ -1,17 +1,16 @@
-- if game.player.board.count_remaining == 0
-  .modal.fade
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close(type="button" data-dismiss="modal")
-            %span(aria-hidden="true")&times;
-            %span.sr-only Close
-          %h4.modal-title Modal title
-        .modal-body
-          %p One fine body&hellip;
-        .modal-footer
-          %button.btn.btn-default(type="button" data-dismiss="modal") Close
-          %button.btn.btn-primary(type="button") Save changes
+#winModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %h4.modal-title You won!
+      .modal-body
+        %p You are a battleship baller!
+      .modal-footer
+        %a.btn.btn-default(type="button" data-dismiss="modal" href="/about")About The Makers
+        %a.btn.btn-primary(type="button" href="/")Exit Game
 .row
   .col-md-2
   .col-md-5
@@ -61,3 +60,8 @@
           %span.sr-only Close
         %strong Miss!
         Try playing again!
+- if game.player.board.game_won?
+  :javascript
+      $(document).ready( function() {
+        $('#winModal').modal();
+      } );
