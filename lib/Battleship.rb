@@ -2,13 +2,14 @@ require 'pry'
 require_relative './Participant.rb'
 
 class Battleship
-  attr_accessor :player, :computer
+  attr_accessor :player1
 
   def initialize(hash)
-    @player = Player.new(hash[:name])
-    @computer = Computer.new(hash[:level])
+    @player1 = Player.new(hash[:name])
+    @player2 = nil
   end
-  def to_s
-    @player.board.to_s
+
+  def add_second_player(name)
+    @player2 = Player.new(name)
   end
 end

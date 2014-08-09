@@ -120,4 +120,10 @@ class Board
     puts "Inactive_pos is " + @inactive_pos.to_s
     puts "Misses are " + @misses.to_s
   end
+
+#   Temp stuff
+  def put_ship(hash)
+    [true, false].sample
+
+  end
 end
