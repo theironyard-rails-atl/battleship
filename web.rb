@@ -45,7 +45,6 @@ get '/game' do
     x = request["x"].to_i if request["x"]
     y = request["y"].to_i if request["y"]
     result = opponent.fire(x, y) if (x && y)
-    binding.pry
     haml :game, :locals => { :request => request, :result => result, :opponent => opponent}
   else
     haml :waiting, :locals => { :request => request }
