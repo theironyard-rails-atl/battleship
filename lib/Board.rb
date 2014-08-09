@@ -2,29 +2,16 @@ require 'pry'
 require_relative './Ship.rb'
 require 'yaml'
 require 'pry'
-require 'httparty'
-
-
-module SetupBoard
-# { ship: destroyer, x: 1, y: 1, dir: h }
-#
-def put_piece(hash)
-  coords = [hash[:x], hash[:y]
-  dir = hash[:dir]
-  length = SHIP_LENGTHS[hash[:ship].to_sym]
-
-  if dir == "h"
-    if 
-
-  elsif dir == "v"
-
-  end
-
-end
 
 class Board
   attr_reader :size
   attr_accessor :active_pos, :inactive_pos, :misses
+
+  $SHIP_SIZES = {destroyer: 2,
+                 submarine: 3,
+                 cruiser: 3,
+                 battleship: 4,
+                 carrier: 5 }
 
   def initialize(board_file, size=10)
     @board_arr = YAML::load(File.open(board_file))
@@ -57,18 +44,42 @@ class Board
     end
   end
 
-=begin
-  #redundant method
-  def hit_destroys_ship?(hit)
-    ship_obj = hit.value
-    if hit? && @active_pos.has_value?(ship_obj)
-      ship_ojb.destroyed = true
+  def put_ship(hash = {ship: "destroyer", x: 1, y: 1, direction: "horizontal"})
+    direction = hash[:direction]
+    length = $SHIP_SIZES[hash[:ship].to_sym]
+    x = hash[:x]
+    y = hash[:y]
+    coords = [[x,y]]
+    ship = hash[:ship]
+
+    #this creates the pseudo coords based on the direction given
+    if direction == "horizontal"
+      length.times { |i| coords << [x, y + i] }
+    elsif direction == "vertical" |i|
+      length.times { coords << [x + i, y] }
     end
+
+    #checking to see if the ship would go off the board
+    coords.flatten.each do |x|
+      return false if x > (@size - 1)
+    end
+
+    #checks to see if any of those pseudo coords are already taken
+    coords.each do |x|
+      return false if @active_pos.has_key?(x)
+    end
+
+    #pass the ship name and coords in hash to the other method
+    create_pos(coords: coords, ship: ship)
+    return true
   end
-=end
 
   def active_ship?(ship_obj)
     @active_pos.has_value?(ship_obj)
+  end
+
+  def show_active_pos?(x,y)
+    @active_pos.include?([x,y])
   end
 
   def show_hit?(x,y)
@@ -97,6 +108,10 @@ class Board
 
   def count_remaining
     @active_pos.values.uniq.count
+  end
+
+  def game_won?
+    @active_pos.count == 0
   end
 
   def console_it
