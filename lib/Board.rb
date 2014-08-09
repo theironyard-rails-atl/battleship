@@ -58,21 +58,20 @@ class Board
     elsif direction == "vertical"
       length.times {  |i| coords << [x + i, y] }
     end
-    binding.pry
 
     #checking to see if the ship would go off the board
     coords.flatten.each do |x|
-      return false if x > (@size - 1)
+      return "not_set" if x > (@size - 1)
     end
 
     #checks to see if any of those pseudo coords are already taken
     coords.each do |x|
-      return false if @active_pos.has_key?(x)
+      return "not_set" if @active_pos.has_key?(x)
     end
 
     #pass the ship name and coords in hash to the other method
     create_pos(coords: coords)
-    return true
+    "set"
   end
 
   def active_ship?(ship_obj)
@@ -116,7 +115,6 @@ class Board
   end
 
   def console_it
-    puts "Board array is " + @board_arr.to_s
     puts "Active_pos is " + @active_pos.to_s
     puts "Inactive_pos is " + @inactive_pos.to_s
     puts "Misses are " + @misses.to_s

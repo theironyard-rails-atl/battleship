@@ -9,12 +9,8 @@
         %tr
         - session[:player].board.size.times do |y|
         - cell = "active" if already_placed?(x, y)
-          %td{ :class => cell }
-            %div
-              - if cell == "active"
-                &nbsp &nbsp
-              - else
-                %a{ :href => "http://#{request.host}:#{request.port}/setup?x=#{x}&y=#{y}" } &nbsp &nbsp
+          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
+            %div &nbsp &nbsp
   .col-md-3
     .btn-group(data-toggle = "buttons")
       %label.btn.btn-primary.active(data-direction="horizontal")
@@ -23,4 +19,20 @@
         %input#option2(type="radio" name="options")Vertical
     .btn#submit Submit
   .col-md-2
+.row
+  .col-md-12
+    - if result == "set"
+      .alert.alert-success.alert-dismissible(role="alert")
+        %button.close(type="button" data-dismiss="alert")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %strong Ship set!
+        You successfully set a ship!
+    - elsif result == "not_set"
+      .alert.alert-danger.alert-dismissible(role="alert")
+        %button.close(type="button" data-dismiss="alert")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %strong Invalid Position!
+        You can't set your ship there. Please try again!
 %script(src="/js/setup.js")

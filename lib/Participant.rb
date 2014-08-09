@@ -27,7 +27,7 @@ end
 class Player < Participant
   attr_reader :name
 
-  def initialize(name = "Tay")
+  def initialize(name = "Anonymous")
     @name = name
     super()
   end

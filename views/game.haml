@@ -12,29 +12,41 @@
         %a.btn.btn-default(type="button" data-dismiss="modal" href="/about")About The Makers
         %a.btn.btn-primary(type="button" href="/")Exit Game
 .row
-  .col-md-2
+  .col-md-1
   .col-md-5
     .panel.panel-default
       .panel-heading Opponent's Board
     %table.table
-      - session[:player].board.size.times do |x|
+      - opponent.board.size.times do |x|
         %tr
-        - session[:player].board.size.times do |y|
-          - cell = cell_class(x, y)
-          %td{ :class => cell }
+        - opponent.board.size.times do |y|
+          - cell = cell_class(x, y, opponent)
+          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
             %div
               - if cell == "blank"
                 %a{ :href => "http://#{request.host}:#{request.port}/game?x=#{x}&y=#{y}" } &nbsp &nbsp
               - else
                 &nbsp &nbsp
-  .col-md-4
-    #side_bar
-      %h1 Game Stats
-      %p= "Misses: #{session[:player].board.count_misses}"
-      %p= "Hits: #{session[:player].board.count_hits}"
-      %p= "Ships Sunk: #{session[:player].board.count_sunk}"
-      %p= "Ships Remaining: #{session[:player].board.count_remaining}"
+  .col-md-5
+    .panel.panel-default
+      .panel-heading Your Board
+    %table.table
+      - session[:player].board.size.times do |x|
+        %tr
+        - session[:player].board.size.times do |y|
+          - cell = cell_class(x, y, session[:player])
+          - active = "active" if already_placed?(x,y)
+          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell, :class => active}
+            %div &nbsp &nbsp
   .col-md-1
+
+.row
+  #side_bar
+    %h1 Game Stats
+    %p= "Misses: #{opponent.board.count_misses}"
+    %p= "Hits: #{opponent.board.count_hits}"
+    %p= "Ships Sunk: #{opponent.board.count_sunk}"
+    %p= "Ships Remaining: #{opponent.board.count_remaining}"
 .row
   .col-md-12
     - if result == "hit"
@@ -58,7 +70,7 @@
           %span.sr-only Close
         %strong Miss!
         Try playing again!
-- if session[:player].board.game_won?
+- if opponent.board.game_won?
   :javascript
       $(document).ready( function() {
         $('#winModal').modal();
