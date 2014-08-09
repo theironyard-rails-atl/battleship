@@ -8,8 +8,13 @@
       - session[:player].board.size.times do |x|
         %tr
         - session[:player].board.size.times do |y|
-          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}"}
-            %div &nbsp &nbsp
+        - cell = "active" if already_placed?(x, y)
+          %td{ :class => cell }
+            %div
+              - if cell == "active"
+                &nbsp &nbsp
+              - else
+                %a{ :href => "http://#{request.host}:#{request.port}/setup?x=#{x}&y=#{y}" } &nbsp &nbsp
   .col-md-3
     .btn-group(data-toggle = "buttons")
       %label.btn.btn-primary.active(data-direction="horizontal")

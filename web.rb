@@ -50,4 +50,8 @@ helpers do
       "blank"
     end
   end
+
+  def already_placed?(x, y)
+    session[:player].board.in_active_pos?(x,y)
+  end
 end

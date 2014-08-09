@@ -15,7 +15,6 @@ class Board
 
   def initialize(size=10)
     @ships_not_set = $SHIP_SIZES.keys
-    @board_arr = []
     @active_pos = {}
     @inactive_pos = {}
     @misses = []
@@ -59,6 +58,7 @@ class Board
     elsif direction == "vertical"
       length.times {  |i| coords << [x + i, y] }
     end
+    binding.pry
 
     #checking to see if the ship would go off the board
     coords.flatten.each do |x|
@@ -79,7 +79,7 @@ class Board
     @active_pos.has_value?(ship_obj)
   end
 
-  def show_active_pos?(x,y)
+  def in_active_pos?(x,y)
     @active_pos.include?([x,y])
   end
 

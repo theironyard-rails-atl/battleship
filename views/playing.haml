@@ -24,9 +24,7 @@
           %td{ :class => cell }
             %div
               - if cell == "blank"
-                %a{ :href => "http://#{request.host}:#{request.port}/game?x=#{x}&y=#{y}" }
-                  &nbsp &nbsp
-                  -#%i.fa.fa-question
+                %a{ :href => "http://#{request.host}:#{request.port}/game?x=#{x}&y=#{y}" } &nbsp &nbsp
               - else
                 &nbsp &nbsp
   .col-md-4
