@@ -14,7 +14,6 @@ get '/setup' do
     x = request["x"].to_i
     y = request["y"].to_i
     direction = request["direction"]
-    binding.pry
     session[:player].board.put_ship( :ship => "", :x => x, :y => y, :direction => direction )
     haml :setup, :local => { :request => request}
   else
