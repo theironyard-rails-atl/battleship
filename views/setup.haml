@@ -3,6 +3,7 @@
   .col-md-5
     .panel.panel-default
       .panel-heading Setup Your Board
+    .panel-body= "Please set the #{session[:player].board.ships_not_set[0].to_s}. This ship has a length of #{$SHIP_SIZES[session[:player].board.ships_not_set[0]]}. Ships will be be placed vertically or horizontally using the topmost or leftmost position."
     %table.table
       - session[:player].board.size.times do |x|
         %tr

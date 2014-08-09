@@ -6,7 +6,7 @@ require_relative './Board.rb'
 class Participant
   attr_accessor :board
   def initialize
-    @board = Board.new("./public/ships.yml")
+    @board = Board.new
   end
 end
 

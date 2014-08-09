@@ -5,7 +5,7 @@ require 'pry'
 
 class Board
   attr_reader :size
-  attr_accessor :active_pos, :inactive_pos, :misses
+  attr_accessor :active_pos, :inactive_pos, :misses, :ships_not_set
 
   $SHIP_SIZES = {destroyer: 2,
                  submarine: 3,
@@ -13,22 +13,25 @@ class Board
                  battleship: 4,
                  carrier: 5 }
 
-  def initialize(board_file, size=10)
-    #@board_arr = YAML::load(File.open(board_file))
+  def initialize(size=10)
+    @ships_not_set = $SHIP_SIZES.keys
+    @board_arr = []
     @active_pos = {}
     @inactive_pos = {}
     @misses = []
     @size = size
-    create_pos
     console_it
   end
 
   def create_pos(hash)
     coordinates = hash[:coords]
-    ship = Ship.new(hash[:ship])
+    ship = Ship.new(@ships_not_set[0])
     coordinates.each do |pos|
       @active_pos[pos] = ship
     end
+    #When a ship is successfully set, the current ship is set to the next ship. If there are not ships left to set,
+    #then the current ship not set becomes nil by default.
+    @current_ship_not_set = @ships_not_set.shift
   end
 
   def hit?(x,y)
@@ -43,19 +46,18 @@ class Board
     end
   end
 
-  def put_ship(hash = {ship: "destroyer", x: 1, y: 1, direction: "horizontal"})
+  def put_ship(hash)
     direction = hash[:direction]
-    length = $SHIP_SIZES[hash[:ship].to_sym]
+    length = $SHIP_SIZES[@ships_not_set[0]]
     x = hash[:x]
     y = hash[:y]
     coords = [[x,y]]
-    ship = hash[:ship]
 
     #this creates the pseudo coords based on the direction given
     if direction == "horizontal"
       length.times { |i| coords << [x, y + i] }
-    elsif direction == "vertical" |i|
-      length.times { coords << [x + i, y] }
+    elsif direction == "vertical"
+      length.times {  |i| coords << [x + i, y] }
     end
 
     #checking to see if the ship would go off the board
@@ -69,7 +71,7 @@ class Board
     end
 
     #pass the ship name and coords in hash to the other method
-    create_pos(coords: coords, ship: ship)
+    create_pos(coords: coords)
     return true
   end
 
@@ -118,11 +120,5 @@ class Board
     puts "Active_pos is " + @active_pos.to_s
     puts "Inactive_pos is " + @inactive_pos.to_s
     puts "Misses are " + @misses.to_s
-  end
-
-#   Temp stuff
-  def put_ship(hash)
-    [true, false].sample
-
   end
 end

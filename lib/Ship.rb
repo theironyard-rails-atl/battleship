@@ -5,7 +5,7 @@ class Ship
   attr_accessor :destroyed
   
   def initialize(name)
-    @name = name
+    @name = name.to_s
     @destroyed = false 
   end
 
