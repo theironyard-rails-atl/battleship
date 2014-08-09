@@ -1,0 +1,20 @@
+.row
+  .col-md-2
+  .col-md-5
+    .panel.panel-default
+      .panel-heading Setup Your Board
+    %table.table
+      - session[:player].board.size.times do |x|
+        %tr
+        - session[:player].board.size.times do |y|
+          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}"}
+            %div &nbsp &nbsp
+  .col-md-3
+    .btn-group(data-toggle = "buttons")
+      %label.btn.btn-primary.active(data-direction="horizontal")
+        %input#option1(type="radio" name="options")Horizontal
+      %label.btn.btn-primary(data-direction="vertical")
+        %input#option2(type="radio" name="options")Vertical
+    .btn#submit Submit
+  .col-md-2
+%script(src="/js/setup.js")

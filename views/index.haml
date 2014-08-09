@@ -5,11 +5,12 @@
       .panel-heading
         %h3.panel-title Start New Game
       .panel-body
-        %form.input-group{ :method => "get", :action => "http://#{request.host}:#{request.port}/"}
-          %input.form-control{ :type => "text", :name => "new_player_name", :placeholder => "Your name", :autofocus => 'autofocus'}
+        %form.input-group{ :method => "get", :action => "http://#{request.host}:#{request.port}/setup"}
+          %input.form-control{ :type => "text", :name => "name", :placeholder => "Your name", :autofocus => 'autofocus'}
           %span.input-group-btn
             %button.btn.btn-default{ :type => "submit" }Play!
   .col-md-3
+
 
 
 

@@ -21,6 +21,7 @@ td {
 td {
     min-height: 50px;
     padding: 0 0 0 0; !important;
+    background-color: #d7efff;
 }
 
 td div {
@@ -42,7 +43,6 @@ td div a {
  margin-right: auto;
 }
 
-i {
-    margin-left: auto;
-    margin-right: auto;
+.clicked {
+  background-color: black;
 }

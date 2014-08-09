@@ -15,16 +15,16 @@
   .col-md-2
   .col-md-5
     .panel.panel-default
-      .panel-heading Computer's Board
+      .panel-heading Opponent's Board
     %table.table
-      - game.player.board.size.times do |x|
+      - session[:player].board.size.times do |x|
         %tr
-        - game.player.board.size.times do |y|
+        - session[:player].board.size.times do |y|
           - cell = cell_class(x, y)
           %td{ :class => cell }
             %div
               - if cell == "blank"
-                %a{ :href => "http://#{request.host}:#{request.port}/?playing=true&x=#{x}&y=#{y}" }
+                %a{ :href => "http://#{request.host}:#{request.port}/game?x=#{x}&y=#{y}" }
                   &nbsp &nbsp
                   -#%i.fa.fa-question
               - else
@@ -32,10 +32,10 @@
   .col-md-4
     #side_bar
       %h1 Game Stats
-      %p= "Misses: #{game.player.board.count_misses}"
-      %p= "Hits: #{game.player.board.count_hits}"
-      %p= "Ships Sunk: #{game.player.board.count_sunk}"
-      %p= "Ships Remaining: #{game.player.board.count_remaining}"
+      %p= "Misses: #{session[:player].board.count_misses}"
+      %p= "Hits: #{session[:player].board.count_hits}"
+      %p= "Ships Sunk: #{session[:player].board.count_sunk}"
+      %p= "Ships Remaining: #{session[:player].board.count_remaining}"
   .col-md-1
 .row
   .col-md-12
@@ -60,7 +60,7 @@
           %span.sr-only Close
         %strong Miss!
         Try playing again!
-- if game.player.board.game_won?
+- if session[:player].board.game_won?
   :javascript
       $(document).ready( function() {
         $('#winModal').modal();
