@@ -1,7 +1,6 @@
 require 'pry'
 require_relative './Ship.rb'
 require 'yaml'
-require 'pry'
 
 class Board
   attr_reader :size
@@ -81,6 +80,7 @@ class Board
 
     #pass the ship name and coords in hash to the other method
     create_pos(coords: coords)
+    console_it
     "set"
   end
 

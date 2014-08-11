@@ -13,14 +13,14 @@ end
 
 class Computer < Participant
 
-  def initialize(name="comp")
+  def initialize(name="Computer")
     @name = name
     super("./public/ships.yml")
     @board.create_comp_pos
   end
 
   def fire
-    return [rand(0..5), rand(0..5)]
+    return [rand(0..@board.size), rand(0..@board.size)]
   end
 
 end
@@ -33,7 +33,7 @@ class Player < Participant
     super()
   end
 
-  def fire (c1, c2)
-    @board.hit?(c1, c2)
+  def fire (x, y)
+    @board.hit?(x, y)
   end
 end

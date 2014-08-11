@@ -15,12 +15,12 @@
   .col-md-1
   .col-md-5
     .panel.panel-default
-      .panel-heading Opponent's Board
+      .panel-heading Computer's Board
     %table.table
-      - opponent.board.size.times do |x|
+      - computer.board.size.times do |x|
         %tr
-        - opponent.board.size.times do |y|
-          - cell = cell_class(x, y, opponent)
+        - computer.board.size.times do |y|
+          - cell = cell_class(x, y, computer)
           %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
             %div
               - if cell == "blank"
@@ -43,10 +43,10 @@
 .row
   #side_bar
     %h1 Game Stats
-    %p= "Misses: #{opponent.board.count_misses}"
-    %p= "Hits: #{opponent.board.count_hits}"
-    %p= "Ships Sunk: #{opponent.board.count_sunk}"
-    %p= "Ships Remaining: #{opponent.board.count_remaining}"
+    %p= "Misses: #{computer.board.count_misses}"
+    %p= "Hits: #{computer.board.count_hits}"
+    %p= "Ships Sunk: #{computer.board.count_sunk}"
+    %p= "Ships Remaining: #{computer.board.count_remaining}"
 .row
   .col-md-12
     - if result == "hit"
@@ -70,8 +70,7 @@
           %span.sr-only Close
         %strong Miss!
         Try playing again!
-- if opponent.board.game_won?
-- binding.pry
+- if computer.board.game_won?
   :javascript
       $(document).ready( function() {
         $('#winModal').modal();
