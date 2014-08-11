@@ -3,7 +3,7 @@
   .col-md-6
     .panel.panel-default
       .panel-heading Your ships are set!
-    .panel-body= "Now you just need to find an an opponent. Your opponent can join via this url http://#{request.host}:#{request.port}/#{session[:game].object_id}. Click on the link below when they are ready"
+    .panel-body= "Now you just need to find an an opponent. Your opponent can join via this url http://#{request.host}:#{request.port}/#{session[:game].identifier}. Click on the link below when they are ready"
     .panel-body
-      %a{ :href => "http://#{request.host}:#{request.port}/game"}= "http://#{request.host}:#{request.port}/game"
+      %a{ :href => "http://#{request.host}:#{request.port}/game?identifier=#{session[:game].identifier}"}= "http://#{request.host}:#{request.port}/game?identifier=#{session[:game].identifier}"
   .col-md-3
