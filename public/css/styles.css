@@ -18,6 +18,15 @@ td {
     background-color: #ffffff;
 }
 
+.clicked {
+    background-color: black;
+}
+
+.active {
+    background-color: #4f4f4f;
+}
+
+
 td {
     min-height: 50px;
     padding: 0 0 0 0; !important;
@@ -41,8 +50,4 @@ td div a {
  padding: 0 0 0 0;
  margin-left: auto;
  margin-right: auto;
-}
-
-.clicked {
-  background-color: black;
 }

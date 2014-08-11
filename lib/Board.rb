@@ -15,7 +15,6 @@ class Board
 
   def initialize(size=10)
     @ships_not_set = $SHIP_SIZES.keys
-    @board_arr = []
     @active_pos = {}
     @inactive_pos = {}
     @misses = []
@@ -62,17 +61,17 @@ class Board
 
     #checking to see if the ship would go off the board
     coords.flatten.each do |x|
-      return false if x > (@size - 1)
+      return "not_set" if x > (@size - 1)
     end
 
     #checks to see if any of those pseudo coords are already taken
     coords.each do |x|
-      return false if @active_pos.has_key?(x)
+      return "not_set" if @active_pos.has_key?(x)
     end
 
     #pass the ship name and coords in hash to the other method
     create_pos(coords: coords)
-    return true
+    "set"
   end
 
   def count_sunk
@@ -94,7 +93,7 @@ class Board
     @active_pos.has_value?(ship_obj)
   end
 
-  def show_active_pos?(x,y)
+  def in_active_pos?(x,y)
     @active_pos.include?([x,y])
   end
 
