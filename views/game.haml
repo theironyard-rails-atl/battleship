@@ -11,6 +11,19 @@
       .modal-footer
         %a.btn.btn-default(type="button" data-dismiss="modal" href="/about")About The Makers
         %a.btn.btn-primary(type="button" href="/")Exit Game
+#loseModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %h4.modal-title You lost!
+      .modal-body
+        %p Dude, you just got beat by a computer!
+      .modal-footer
+        %a.btn.btn-default(type="button" data-dismiss="modal" href="/about")About The Makers
+        %a.btn.btn-primary(type="button" href="/")Exit Game
 .row
   .col-md-1
   .col-md-5
@@ -35,8 +48,7 @@
         %tr
         - session[:player].board.size.times do |y|
           - cell = cell_class(x, y, session[:player])
-          - active = "active" if already_placed?(x,y)
-          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell, :class => active}
+          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
             %div &nbsp &nbsp
   .col-md-1
 
@@ -49,29 +61,58 @@
     %p= "Ships Remaining: #{computer.board.count_remaining}"
 .row
   .col-md-12
-    - if result == "hit"
+    - if player_result == "hit"
       .alert.alert-success.alert-dismissible(role="alert")
         %button.close(type="button" data-dismiss="alert")
           %span(aria-hidden="true")
           %span.sr-only Close
-        %strong Hit!
+        %strong You Hit!
         You hit like a heavyweight champ!
-    - elsif result == "sunk"
+    - elsif player_result == "sunk"
       .alert.alert-success.alert-dismissible(role="alert")
         %button.close(type="button" data-dismiss="alert")
           %span(aria-hidden="true")
           %span.sr-only Close
-        %strong Sunk!
+        %strong You Sunk!
         Did you just buy a kitchen sink, cuz you just sunk that fool!
-    - elsif result == "miss"
+    - elsif player_result == "miss"
       .alert.alert-danger.alert-dismissible(role="alert")
         %button.close(type="button" data-dismiss="alert")
           %span(aria-hidden="true")
           %span.sr-only Close
-        %strong Miss!
+        %strong You Missed!
         Try playing again!
+.row
+  .col-md-12
+    - puts computer_result
+    - if computer_result == "hit"
+      .alert.alert-success.alert-dismissible(role="alert")
+        %button.close(type="button" data-dismiss="alert")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %strong Computer Hit Your Ship!
+        I'm sorry. Did you want that ship?
+    - elsif computer_result == "sunk"
+      .alert.alert-success.alert-dismissible(role="alert")
+        %button.close(type="button" data-dismiss="alert")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %strong Computer Ship Your Ship!
+        Maybe we should play chess? Oh wait, computers are awesome at that too.
+    - elsif computer_result == "miss"
+      .alert.alert-danger.alert-dismissible(role="alert")
+        %button.close(type="button" data-dismiss="alert")
+          %span(aria-hidden="true")
+          %span.sr-only Close
+        %strong Computer Missed You!
+        Argh! My bits are frying!
 - if computer.board.game_won?
   :javascript
-      $(document).ready( function() {
-        $('#winModal').modal();
-      } );
+    $(document).ready( function() {
+      $('#winModal').modal();
+    } );
+- elsif session[:player].board.game_won?
+  :javascript
+    $(document).ready( function() {
+      $('#loseModal').modal();
+    } );

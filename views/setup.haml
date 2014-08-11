@@ -8,7 +8,7 @@
       - session[:player].board.size.times do |x|
         %tr
         - session[:player].board.size.times do |y|
-        - cell = "active" if already_placed?(x, y)
+        - cell = "placed" if already_placed?(x, y)
           %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
             %div &nbsp &nbsp
   .col-md-3

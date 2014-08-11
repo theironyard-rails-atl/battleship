@@ -7,8 +7,7 @@ $(document).ready( function() {
 //    slick the cells
     $( ".cell" ).click(function() {
         console.log("In the click function");
-        if ( !$( this ).hasClass( "active" ) ) {
-            console.log("In the active setup");
+        if ( !$( this ).hasClass( "placed" ) ) {
             x = $( this ).data('x');
             console.log("x is " + x);
             y = $( this ).data('y');

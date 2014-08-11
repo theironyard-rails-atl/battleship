@@ -23,8 +23,9 @@ get '/setup' do
   if session[:game] #means that there is a game object
     result = session[:player].board.put_ship( :x => request["x"].to_i, :y => request["y"].to_i, :direction => request["direction"] )
 
-    if session[:player].board.ships_not_set.empty? #&& session[:game].player2
-      haml :game, :locals => { :request => request, :result => result, :computer => session[:game].computer }
+    if session[:player].board.ships_not_set.empty?
+      redirect to('/game', "")
+      #haml :game, :locals => { :request => request, :result => result, :computer => session[:game].computer }
     else
       haml :setup, :locals => { :request => request, :result => result}
     end
@@ -40,9 +41,11 @@ get '/game' do
   if request["x"] && request["y"]
     x = request["x"].to_i
     y = request["y"].to_i
-    result = session[:game].computer.fire(x, y)
+    player_result = session[:game].computer.fire(x, y)
+    computer_result = session[:game].player.fire
+    session[:game].toggle_turn
   end
-  haml :game, :locals => { :request => request, :result => result, :computer => session[:game].computer}
+  haml :game, :locals => { :request => request, :player_result => player_result, :computer_result => computer_result, :computer => session[:game].computer}
 end
 
 get '/about' do
@@ -55,6 +58,8 @@ helpers do
       "hit"
     elsif player.board.show_missed?(x, y)
       "missed"
+    elsif (player == session[:player]) && already_placed?(x,y)
+      "placed"
     else
       "blank"
     end

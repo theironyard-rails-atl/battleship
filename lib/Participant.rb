@@ -8,6 +8,10 @@ class Participant
   def initialize(yaml = nil)
     @board = Board.new(yaml)
   end
+
+  def fire (x=rand(0..@board.size), y=rand(0..@board.size))
+    @board.hit?(x, y)
+  end
 end
 
 
@@ -19,10 +23,6 @@ class Computer < Participant
     @board.create_comp_pos
   end
 
-  def fire
-    return [rand(0..@board.size), rand(0..@board.size)]
-  end
-
 end
 
 class Player < Participant
@@ -31,9 +31,5 @@ class Player < Participant
   def initialize(name = "Anonymous")
     @name = name
     super()
-  end
-
-  def fire (x, y)
-    @board.hit?(x, y)
   end
 end

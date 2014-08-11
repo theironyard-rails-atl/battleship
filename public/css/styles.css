@@ -11,7 +11,7 @@ td {
 }
 
 .missed {
-    background-color: #a09863;
+    background-color: #f2f16f;
 }
 
 .blank {
@@ -22,8 +22,8 @@ td {
     background-color: black;
 }
 
-.active {
-    background-color: #4f4f4f;
+.placed {
+    background-color: #686868;
 }
 
 
