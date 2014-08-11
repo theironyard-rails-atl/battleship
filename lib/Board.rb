@@ -13,13 +13,23 @@ class Board
                  battleship: 4,
                  carrier: 5 }
 
-  def initialize(size=10)
+  def initialize(board_file=nil, size=10)
+    @board_arr = YAML::load(File.open(board_file)) if board_file
     @ships_not_set = $SHIP_SIZES.keys
     @active_pos = {}
     @inactive_pos = {}
     @misses = []
     @size = size
     console_it
+  end
+
+  def create_comp_pos
+    @board_arr.each do |name, pos_arr|
+      ship = Ship.new(name)
+      pos_arr.each do |pos|
+        @active_pos[pos] = ship
+      end
+    end
   end
 
   def create_pos(hash)

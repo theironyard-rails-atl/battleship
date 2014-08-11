@@ -5,8 +5,8 @@ require_relative './Board.rb'
 
 class Participant
   attr_accessor :board
-  def initialize
-    @board = Board.new
+  def initialize(yaml = nil)
+    @board = Board.new(yaml)
   end
 end
 
@@ -15,7 +15,8 @@ class Computer < Participant
 
   def initialize(name="comp")
     @name = name
-    super()
+    super("./public/ships.yml")
+    @board.create_comp_pos
   end
 
   def fire
@@ -35,5 +36,4 @@ class Player < Participant
   def fire (c1, c2)
     @board.hit?(c1, c2)
   end
-
 end
