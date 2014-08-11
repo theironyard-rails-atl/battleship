@@ -1,6 +1,6 @@
 .row
-  .col-md-2
-  .col-md-5
+  .col-md-3
+  .col-md-6
     .panel.panel-default
       .panel-heading Setup Your Board
     .panel-body= "Please set the #{session[:player].board.ships_not_set[0].to_s}. This ship has a length of #{$SHIP_SIZES[session[:player].board.ships_not_set[0]]}. Ships will be be placed vertically or horizontally using the topmost or leftmost position."
@@ -11,14 +11,13 @@
         - cell = "placed" if already_placed?(x, y)
           %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
             %div &nbsp &nbsp
-  .col-md-3
-    .btn-group(data-toggle = "buttons")
+    .btn-group#toggle(data-toggle = "buttons")
       %label.btn.btn-primary.active(data-direction="horizontal")
         %input#option1(type="radio" name="options")Horizontal
       %label.btn.btn-primary(data-direction="vertical")
         %input#option2(type="radio" name="options")Vertical
-    .btn#submit Submit
-  .col-md-2
+    .btn.btn-default#submit Submit
+  .col-md-3
 .row
   .col-md-12
     - if result == "set"

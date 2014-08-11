@@ -25,42 +25,7 @@
         %a.btn.btn-default(type="button" data-dismiss="modal" href="/about")About The Makers
         %a.btn.btn-primary(type="button" href="/")Exit Game
 .row
-  .col-md-1
-  .col-md-5
-    .panel.panel-default
-      .panel-heading Computer's Board
-    %table.table
-      - computer.board.size.times do |x|
-        %tr
-        - computer.board.size.times do |y|
-          - cell = cell_class(x, y, computer)
-          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
-            %div
-              - if cell == "blank"
-                %a{ :href => "http://#{request.host}:#{request.port}/game?x=#{x}&y=#{y}" } &nbsp &nbsp
-              - else
-                &nbsp &nbsp
-  .col-md-5
-    .panel.panel-default
-      .panel-heading Your Board
-    %table.table
-      - session[:player].board.size.times do |x|
-        %tr
-        - session[:player].board.size.times do |y|
-          - cell = cell_class(x, y, session[:player])
-          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
-            %div &nbsp &nbsp
-  .col-md-1
-
-.row
-  #side_bar
-    %h1 Game Stats
-    %p= "Misses: #{computer.board.count_misses}"
-    %p= "Hits: #{computer.board.count_hits}"
-    %p= "Ships Sunk: #{computer.board.count_sunk}"
-    %p= "Ships Remaining: #{computer.board.count_remaining}"
-.row
-  .col-md-12
+  .col-md-6
     - if player_result == "hit"
       .alert.alert-success.alert-dismissible(role="alert")
         %button.close(type="button" data-dismiss="alert")
@@ -82,8 +47,7 @@
           %span.sr-only Close
         %strong You Missed!
         Try playing again!
-.row
-  .col-md-12
+  .col-md-6
     - puts computer_result
     - if computer_result == "hit"
       .alert.alert-success.alert-dismissible(role="alert")
@@ -106,6 +70,53 @@
           %span.sr-only Close
         %strong Computer Missed You!
         Argh! My bits are frying!
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading Computer's Board
+    %table.table
+      - computer.board.size.times do |x|
+        %tr
+        - computer.board.size.times do |y|
+          - cell = cell_class(x, y, computer)
+          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
+            %div
+              - if cell == "blank"
+                %a{ :href => "http://#{request.host}:#{request.port}/game?x=#{x}&y=#{y}" } &nbsp &nbsp
+              - else
+                &nbsp &nbsp
+  .col-md-6
+    .panel.panel-default
+      .panel-heading Your Board
+    %table.table
+      - session[:player].board.size.times do |x|
+        %tr
+        - session[:player].board.size.times do |y|
+          - cell = cell_class(x, y, session[:player])
+          %td.cell{ :"data-x" => "#{x}", :"data-y" => "#{y}", :class => cell}
+            %div &nbsp &nbsp
+
+.row
+  %hr
+  #side_bar
+    .col-md-3
+      %h4 Game Stats
+    .col-md-1
+      %p Misses:
+    .col-md-1
+      %span.badge= computer.board.count_misses
+    .col-md-1
+      %p Hits:
+    .col-md-1
+      %span.badge= computer.board.count_hits
+    .col-md-1
+      %p Sunk:
+    .col-md-1
+      %span.badge= computer.board.count_sunk
+    .col-md-1
+      %p Remaining:
+    .col-md-1
+      %span.badge= computer.board.count_remaining
 - if computer.board.game_won?
   :javascript
     $(document).ready( function() {
