@@ -3,8 +3,16 @@ require './Board'
 require 'minitest/autorun'
 
 describe Board do
+  it "can position ships properly" do
+    board = Board.new()
+    board.put_ship([name: "destroyer", direction: vertical, x: 0, y: 0])
+    position = board.show_active_pos?(0,0)
+    assert_equal position, true
+  end
+
   it "knows when ships are hit" do
-    board = Board.new("ships.yml", [6,6])
+    board = Board.new
+    board.put_ship([name: "destroyer", direction: vertical, x: 0, y: 0])
     board.create_pos
     assert_equal board.hit?(1,1), true
   end
