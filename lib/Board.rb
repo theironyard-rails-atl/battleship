@@ -75,6 +75,21 @@ class Board
     return true
   end
 
+  def count_sunk
+    active_ships = @active_pos.values.uniq
+    inactive_ships = @inactive_pos.values.uniq
+    inactive_ships.delete_if { |ship|
+      active_ships.include?(ship)
+    }.count
+  end
+
+  def console_it
+    puts "Board array is " + @board_arr.to_s
+    puts "Active_pos is " + @active_pos.to_s
+    puts "Inactive_pos is " + @inactive_pos.to_s
+    puts "Misses are " + @misses.to_s
+  end
+
   def active_ship?(ship_obj)
     @active_pos.has_value?(ship_obj)
   end
@@ -99,14 +114,6 @@ class Board
     @inactive_pos.count
   end
 
-  def count_sunk
-    active_ships = @active_pos.values.uniq
-    inactive_ships = @inactive_pos.values.uniq
-    inactive_ships.delete_if { |ship|
-      active_ships.include?(ship)
-    }.count
-  end
-
   def count_remaining
     @active_pos.values.uniq.count
   end
@@ -115,10 +122,4 @@ class Board
     @active_pos.count == 0
   end
 
-  def console_it
-    puts "Board array is " + @board_arr.to_s
-    puts "Active_pos is " + @active_pos.to_s
-    puts "Inactive_pos is " + @inactive_pos.to_s
-    puts "Misses are " + @misses.to_s
-  end
 end
